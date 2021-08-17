@@ -1,4 +1,4 @@
-import { Column, Entity,ManyToOne,OneToOne,PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity,JoinColumn,ManyToOne,OneToOne,PrimaryGeneratedColumn} from "typeorm";
 import Typeblock from "./Typeblock";
 
 
@@ -7,7 +7,9 @@ class Dimetrics{
 @PrimaryGeneratedColumn()
 id: string;
 
+//Colocar id do tipo de bloco
 @ManyToOne(() => Typeblock, typeblock => typeblock.dimetrics)
+@JoinColumn({name:'typeblock_id'})
 type_block : Typeblock;
 
 @Column()
