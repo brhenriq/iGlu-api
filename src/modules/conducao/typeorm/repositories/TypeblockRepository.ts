@@ -1,18 +1,15 @@
 import {EntityRepository, Repository} from 'typeorm';
-import Dimetrics from '../entities/Dimetricsblock';
-import Dimetricsblock from '../entities/Dimetricsblock';
+import DimensionBlock from '../entities/DimensionBlock';
 
-@EntityRepository(Dimetricsblock)
-class DimetricsblockRepository extends Repository<Dimetricsblock>{
+@EntityRepository(DimensionBlock)
+class DimensionBlockRepository extends Repository<DimensionBlock>{
 
-  public async findById(id: string): Promise<Dimetrics | undefined> {
-    const Dimetricsblock = this.findOne(id, {
-      relations: ['typeblock_id'],
+  public async findById(id: string): Promise<DimensionBlock | undefined> {
+    const DimensionBlock = this.findOne(id, {
+      relations: ['id_typeblock'],
     });
 
-    return Dimetricsblock;
-  }
-  
-
+    return DimensionBlock;
+  }  
 }
-export default DimetricsblockRepository;
+export default DimensionBlockRepository;

@@ -1,24 +1,22 @@
-import { Column, Entity,JoinColumn,JoinTable,OneToMany,OneToOne,PrimaryGeneratedColumn} from "typeorm";
-import Dimetrics from './Dimetricsblock'
-import Materils from "./Materils";
+import { Column, Entity, JoinColumn, JoinTable, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import DimensionBlock from "./DimensionBlock";
+import Material from "./Material";
 
 @Entity('type_block')
-
 class Typeblock{
 
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id:string;
   
   @Column()
-  name:string
-// Tirar id dimensão
-  @OneToMany(()=> Dimetrics, dimetrics => dimetrics.type_block)
-  dimetrics: Dimetrics[];
+  name: string;
 
+  @OneToMany(() => DimensionBlock, dimensionBlock => dimensionBlock.type_block)
+  dimension_block: DimensionBlock[];
   
-  @OneToOne(() => Materils)
-  @JoinTable({name: 'materils_id'})
-  materils: Materils;
+  @OneToOne(() => Material)
+  @JoinColumn({ name: 'id_materials'})
+  material: Material;
 }
 
 export default Typeblock;

@@ -33,16 +33,16 @@ export class CreateDimensionBlock1629243600572 implements MigrationInterface {
                     scale: 3
                 },
                 {
-                    name: 'car-orientation',
+                    name: 'car_orientation',
                     type: 'varchar'
                 },
                 {
-                    name: 'car-altura',
+                    name: 'car_altura',
                     type: 'decimal',
                     scale: 3
                 },
                 {
-                    name: 'car-largura',
+                    name: 'car_largura',
                     type: 'decimal',
                     scale: 3
                 }
