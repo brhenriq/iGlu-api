@@ -1,9 +1,10 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CriarEquipamento1629338292561 implements MigrationInterface {
+export class CriarPessoas1629507353287 implements MigrationInterface {
+
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'equipamentos',
+            name: 'pessoas',
             columns: [
                 {
                     name: 'id',
@@ -13,20 +14,24 @@ export class CriarEquipamento1629338292561 implements MigrationInterface {
                     default: 'uuid_generate_v4()',
                 },
                 {
-                    name: 'nome',
+                    name: 'nivel',
                     type: 'varchar'
                 },
                 {
-                    name: 'potencia',
+                    name: 'local',
+                    type: 'varchar'
+                },
+                {
+                    name: 'calor',
                     type: 'decimal',
                     scale: 3
                 }
-            ],
+            ]
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('equipamentos');
+        await queryRunner.dropTable('pessoas');
     }
 
 }

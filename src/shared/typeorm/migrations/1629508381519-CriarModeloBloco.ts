@@ -1,10 +1,10 @@
-import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
+import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CriarBloco1629337005146 implements MigrationInterface {
+export class CriarModeloBloco1629508381519 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'bloco',
+            name: 'modelo_bloco',
             columns: [
                 {
                     name: 'id',
@@ -23,33 +23,21 @@ export class CriarBloco1629337005146 implements MigrationInterface {
                     scale: 3
                 },
                 {
-                    name: 'comprimento',
-                    type: 'decimal',
-                    scale: 3
-                },
-                {
                     name: 'largura',
                     type: 'decimal',
                     scale: 3
                 },
                 {
-                    name: 'id_material',
-                    type: 'uuid'
-                }
-            ],
-        }));
-
-        await queryRunner.createForeignKey('bloco', new TableForeignKey({
-            name: 'Material_Bloco',
-            columnNames: ['id_material'],
-            referencedColumnNames: ['id'],
-            referencedTableName: 'materials'
+                    name: 'comprimento',
+                    type: 'decimal',
+                    scale: 3
+                },
+            ]
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('bloco', 'Material_Bloco');
-        await queryRunner.dropTable('bloco');
+        await queryRunner.dropTable('modelo_bloco');
     }
 
 }

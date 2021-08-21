@@ -1,5 +1,7 @@
-import dimensionRouter from '@modules/conducao/routes/dimensions.routes';
 import { Request, Response, Router } from 'express';
+import equipamentosRouter from '@modules/equipamentos/routes/equipamentos.routes';
+import iluminacaoRouter from '@modules/iluminacao/routes/pessoas.routes';
+import pessoasRouter from '@modules/pessoas/routes/pessoas.routes';
 
 const routes = Router();
 
@@ -11,6 +13,8 @@ routes.get('/', (request:Request, response:Response) => {
   return response.json({ message: 'Hello Dev!' + result });
 });
 
-routes.use('/dimensions', dimensionRouter);
+routes.use('/pessoas', pessoasRouter);
+routes.use('/equipamentos', equipamentosRouter);
+routes.use('/iluminacao', iluminacaoRouter);
 
 export default routes;

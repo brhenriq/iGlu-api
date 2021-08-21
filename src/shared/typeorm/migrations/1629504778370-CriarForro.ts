@@ -1,10 +1,10 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateTypeBlock1629243176568 implements MigrationInterface {
+export class CriarForro1629504778370 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'type_block',
+            name: 'forro',
             columns: [
                 {
                     name: 'id',
@@ -14,27 +14,28 @@ export class CreateTypeBlock1629243176568 implements MigrationInterface {
                     default: 'uuid_generate_v4()',
                 },
                 {
-                    name: 'id_materials',
+                    name: 'material_id',
                     type: 'uuid'
                 },
                 {
-                    name: 'name',
-                    type: 'varchar'
+                    name: 'espessura',
+                    type: 'decimal',
+                    scale: 3
                 }
-            ],
+            ]
         }));
 
-        await queryRunner.createForeignKey('type_block', new TableForeignKey({
-            name: 'TypeBlock_Materials',
-            columnNames: ['id_materials'],
+        await queryRunner.createForeignKey('forro', new TableForeignKey({
+            name: 'MaterialForro',
+            columnNames: ['material_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'materials'
+            referencedTableName: 'material'
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('type_block', 'TypeBlock_Materials');
-        await queryRunner.dropTable('type_block');
+        await queryRunner.dropForeignKey('forro', 'MaterialForro');
+        await queryRunner.dropTable('forro');
     }
 
 }
