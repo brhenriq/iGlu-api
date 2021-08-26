@@ -2,7 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, OneToOne} from 'typeorm'
 
 @Entity('material')
 class Material {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()

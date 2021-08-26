@@ -7,7 +7,7 @@ class ListarTelhasService {
     const telhaRepository = getCustomRepository(TelhaRepository);
     
     const telhas = await telhaRepository.find({
-      relations: ['material', 'modelo']
+      relations: ['material']
     });
     
     return telhas;

@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import CalculoService from "../services/CalculoService";
+import CalculoParedeService from "../services/CalculoParedeService";
+import CalculoTetoService from "../services/CalculoTetoService";
 
 export default class TelhaController {
-  public async calculo(request: Request, response: Response): Promise<Response> {
+  public async parede(request: Request, response: Response): Promise<Response> {
     const {
       BlocoPComprimento,
       BlocoPAltura,
@@ -17,9 +18,9 @@ export default class TelhaController {
       AreaP
     } = request.body;
 
-    const Calculo = new CalculoService();
+    const CalculoParede = new CalculoParedeService();
 
-    const resultado = await Calculo.execute({
+    const resultado = await CalculoParede.execute({
       BlocoPComprimento,
       BlocoPAltura,
       BlocoPLargura,
@@ -36,4 +37,29 @@ export default class TelhaController {
     return response.json(resultado);
   }
 
+  public async teto(request: Request, response: Response): Promise<Response> {
+    const {
+      AreaPiso,
+      CondutividadeTelha,
+      EspessuraTelha,
+      CondutividadeForrLaje,
+      EspessuraForrLaje,
+      TemperaturaExterna,
+      TemperaturaInterna,
+    } = request.body;
+
+    const CalculoTeto = new CalculoTetoService();
+
+    const resultado = await CalculoTeto.execute({
+    AreaPiso,
+    CondutividadeTelha,
+    EspessuraTelha,
+    CondutividadeForrLaje,
+    EspessuraForrLaje,
+    TemperaturaExterna,
+    TemperaturaInterna,
+  });
+
+    return response.json(resultado);
+  }
 }

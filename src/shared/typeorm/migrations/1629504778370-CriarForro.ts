@@ -8,14 +8,14 @@ export class CriarForro1629504778370 implements MigrationInterface {
             columns: [
                 {
                     name: 'id',
-                    type: 'uuid',
+                    type: 'int',
                     isPrimary: true,
-                    generationStrategy: 'uuid',
-                    default: 'uuid_generate_v4()',
+                    isGenerated: true,
+                    generationStrategy: 'increment',
                 },
                 {
                     name: 'material_id',
-                    type: 'uuid'
+                    type: 'int'
                 },
                 {
                     name: 'espessura',

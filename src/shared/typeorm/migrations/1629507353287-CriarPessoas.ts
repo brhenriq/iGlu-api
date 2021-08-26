@@ -8,10 +8,10 @@ export class CriarPessoas1629507353287 implements MigrationInterface {
             columns: [
                 {
                     name: 'id',
-                    type: 'uuid',
+                    type: 'int',
                     isPrimary: true,
-                    generationStrategy: 'uuid',
-                    default: 'uuid_generate_v4()',
+                    isGenerated: true,
+                    generationStrategy: 'increment',
                 },
                 {
                     name: 'nivel',

@@ -5,6 +5,7 @@ const calculoRouter = Router();
 
 const calculoController = new CalculoController();
 
-calculoRouter.get('/', calculoController.calculo);
+calculoRouter.get('/parede', calculoController.parede);
+calculoRouter.get('/teto', calculoController.teto);
 
 export default calculoRouter;

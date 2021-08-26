@@ -1,27 +1,3 @@
-const objeto = {
-  AreaP:20,
-  Orientacao:"Norte",
-    MaterialReboco:{
-      name:"Argamassa",
-      condutividade:1.15
-    },
-    BlocoP:{
-      altura:0.05,
-      comprimento:0.19,
-      largura:0.09,
-      condutividade:0.90,
-      nome:"Bloco 6 Furos"
-    },
-    MaterialAssentamento : {
-      condutividade : 1.15
-    },
-
-    EspessuraR_externa:0.02,
-    EspessuraR_interna:0.02,
-    TemperaturaInterna: 24,
-    TemperaturaExterna: 32
-  }
-
 function AreaA(valor1: number,valo2: number){
   const valorTotal = (valor1 * 0.01) + (valo2 * 0.01)
   return valorTotal
@@ -61,7 +37,6 @@ return valor
 }
 
 function ConducaoFinal(Area: number,U: number,Delta: number){
-
  const Valor =  Area * U * Delta
  return Valor
 }
@@ -80,7 +55,7 @@ interface IRequest {
   AreaP: number
 }
 
-class CalculoService {
+class CalculoParedeService {
   public async execute({
     BlocoPComprimento,
     BlocoPAltura,
@@ -94,24 +69,10 @@ class CalculoService {
     TemperaturaInterna,
     AreaP
   }: IRequest): Promise<Number> {
-console.log({
-    BlocoPComprimento,
-    BlocoPAltura,
-    BlocoPLargura,
-    BlocoPCondutividade,
-    EspessuraRInterna,
-    EspessuraRExterna,
-    CondutividadeReboco,
-    CondutividadeAssentamento,
-    TemperaturaExterna,
-    TemperaturaInterna,
-    AreaP
-  })
     let Aa = AreaA(BlocoPComprimento, BlocoPAltura)
     let Ra = ResistenciaA(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, CondutividadeAssentamento, BlocoPLargura)
     let Rb = ResistenciaB(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, BlocoPCondutividade, BlocoPLargura)
     let Ab = AreaB(BlocoPAltura, BlocoPComprimento)
-    console.log(Aa, Ab, Ra, Rb)
     
     let Rt = ResistenciaParede(Aa, Ab, Ra, Rb)
     
@@ -121,10 +82,8 @@ console.log({
     
     let final = ConducaoFinal(AreaP, u, delta)
     
-    console.log(Rt, u, delta)
-    
     return final;
   }
 }
 
-export default CalculoService;
+export default CalculoParedeService;
