@@ -25,6 +25,7 @@ function ResistenciaParede(Aa: number,Ab: number,Ra: number,Rb: number){
   const valorTotal = (a)/((b) + (c))
   return valorTotal
 }
+
 function CoeficienteGlobal(Rt: number){
   const ValorTotal= 0.13 + Rt + 0.04
   const u = (1/ValorTotal)
