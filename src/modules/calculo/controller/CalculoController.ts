@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import CalculoEquipamentosService from "../services/CalculoEquipamentosService";
+import CalculoInsolacaoService from "../services/CalculoInsolacaoService";
 import CalculoParedeService from "../services/CalculoParedeService";
 import CalculoPessoasService from "../services/CalculoPessoasService";
 import CalculoTetoService from "../services/CalculoTetoService";
@@ -18,11 +19,15 @@ export default class TelhaController {
       TemperaturaExterna,
       TemperaturaInterna,
       AreaP,
+      Orientacao,
+      AreaVidro,
+      Latitude
     } = request.body;
 
     const CalculoParede = new CalculoParedeService();
+    const CalculoInsolacao = new CalculoInsolacaoService();
 
-    const resultado = await CalculoParede.execute({
+    const resultadoParede = await CalculoParede.execute({
       BlocoPComprimento,
       BlocoPAltura,
       BlocoPLargura,
@@ -35,6 +40,22 @@ export default class TelhaController {
       TemperaturaInterna,
       AreaP,
     });
+
+    let resultado = resultadoParede;
+
+    if (AreaVidro) {
+      const resultadoVidro = await CalculoInsolacao.execute({
+        AreaVidro,
+        Orientacao,
+        Latitude,
+      });
+
+      resultado = 0;
+
+      resultado = Number(resultadoVidro) + Number(resultadoParede);
+      console.log(resultadoVidro, resultadoParede);
+    }
+
 
     return response.json(resultado);
   }
