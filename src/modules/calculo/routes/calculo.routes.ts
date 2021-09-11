@@ -9,5 +9,6 @@ calculoRouter.get('/parede', calculoController.parede);
 calculoRouter.get('/teto', calculoController.teto);
 calculoRouter.get('/pessoas', calculoController.pessoas);
 calculoRouter.get('/equipamentos', calculoController.equipamentos);
+calculoRouter.get('/iluminacao', calculoController.iluminacao);
 
 export default calculoRouter;

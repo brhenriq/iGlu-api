@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import CalculoEquipamentosService from "../services/CalculoEquipamentosService";
+import CalculoIluminacaoService from "../services/CalculoIluminacaoService";
 import CalculoInsolacaoService from "../services/CalculoInsolacaoService";
 import CalculoParedeService from "../services/CalculoParedeService";
 import CalculoPessoasService from "../services/CalculoPessoasService";
@@ -21,7 +22,7 @@ export default class TelhaController {
       AreaP,
       Orientacao,
       AreaVidro,
-      Latitude
+      Latitude,
     } = request.body;
 
     const CalculoParede = new CalculoParedeService();
@@ -107,7 +108,20 @@ export default class TelhaController {
 
     const CalculoEquipamentos = new CalculoEquipamentosService();
 
-    const resultado = await CalculoEquipamentos.execute({equipamentos});
+    const resultado = await CalculoEquipamentos.execute({ equipamentos });
+
+    return response.json(resultado);
+  }
+
+  public async iluminacao(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
+    const { area } = request.body;
+
+    const calculoIluminacao = new CalculoIluminacaoService();
+
+    const resultado = await calculoIluminacao.execute({ area });
 
     return response.json(resultado);
   }
