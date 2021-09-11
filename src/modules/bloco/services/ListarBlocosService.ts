@@ -7,7 +7,7 @@ class ListarBlocosService {
     const blocoRepository = getCustomRepository(BlocoRepository);
     
     const blocos = await blocoRepository.find({
-      relations: ['material', 'modelo']
+      relations: ['material']
     });
     
     return blocos;

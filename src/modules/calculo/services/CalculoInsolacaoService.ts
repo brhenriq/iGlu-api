@@ -21,9 +21,7 @@ class CalculoInsolacaoService {
       .createQueryBuilder("fator_solar")
       .where(`orientacao = '${Orientacao}'`)
       .andWhere(`latitude = '${Latitude}'`)
-      .getOne()
-    
-    console.log(fatorSolar?.fator_solar);
+      .getOne();
 
     const resultado = calculoInsolacao(AreaVidro, fatorSolar?.fator_solar || 0);
     

@@ -1,19 +1,23 @@
-import {Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm'
+import {Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column} from 'typeorm'
 import Material from './Material';
-import Modelo from './Modelo';
 
-@Entity('bloco')
+@Entity("bloco")
 class Bloco {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @OneToOne(() => Material)
-  @JoinColumn({ name: 'material_id'})
+  @JoinColumn({ name: "material_id" })
   material: Material;
 
-  @OneToOne(() => Modelo)
-  @JoinColumn({ name: 'modelo_id'})
-  modelo: Modelo;
+  @Column()
+  altura: number;
+
+  @Column()
+  largura: number;
+
+  @Column()
+  comprimento: number;
 }
 
 export default Bloco;

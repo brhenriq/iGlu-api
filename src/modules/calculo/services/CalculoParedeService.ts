@@ -70,6 +70,9 @@ class CalculoParedeService {
     TemperaturaInterna,
     AreaP
   }: IRequest): Promise<Number> {
+
+    console.log(AreaP);
+    
     let Aa = AreaA(BlocoPComprimento, BlocoPAltura)
     let Ra = ResistenciaA(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, CondutividadeAssentamento, BlocoPLargura)
     let Rb = ResistenciaB(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, BlocoPCondutividade, BlocoPLargura)

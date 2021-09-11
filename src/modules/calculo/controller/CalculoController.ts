@@ -27,6 +27,20 @@ export default class TelhaController {
     const CalculoParede = new CalculoParedeService();
     const CalculoInsolacao = new CalculoInsolacaoService();
 
+    let resultadoVidro;
+
+    let AreaTotal;
+
+    if (AreaVidro) {
+      resultadoVidro = await CalculoInsolacao.execute({
+        AreaVidro,
+        Orientacao,
+        Latitude,
+      });
+
+      AreaTotal = AreaP - AreaVidro;
+    }
+
     const resultadoParede = await CalculoParede.execute({
       BlocoPComprimento,
       BlocoPAltura,
@@ -38,24 +52,10 @@ export default class TelhaController {
       CondutividadeAssentamento,
       TemperaturaExterna,
       TemperaturaInterna,
-      AreaP,
+      AreaP: AreaTotal || AreaP,
     });
 
-    let resultado = resultadoParede;
-
-    if (AreaVidro) {
-      const resultadoVidro = await CalculoInsolacao.execute({
-        AreaVidro,
-        Orientacao,
-        Latitude,
-      });
-
-      resultado = 0;
-
-      resultado = Number(resultadoVidro) + Number(resultadoParede);
-      console.log(resultadoVidro, resultadoParede);
-    }
-
+    const resultado = Number(resultadoParede) + Number(resultadoVidro);
 
     return response.json(resultado);
   }
