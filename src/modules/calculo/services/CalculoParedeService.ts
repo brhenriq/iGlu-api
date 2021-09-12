@@ -1,3 +1,7 @@
+import BlocoRepository from "@modules/bloco/typeorm/repositories/BlocoRepository"
+import { response } from "express"
+import { getCustomRepository } from "typeorm"
+
 function AreaA(valor1: number,valo2: number){
   const valorTotal = (valor1 * 0.01) + (valo2 * 0.01)
   return valorTotal
@@ -43,10 +47,7 @@ function ConducaoFinal(Area: number,U: number,Delta: number){
 }
 
 interface IRequest {
-  BlocoPComprimento: number,
-  BlocoPAltura: number,
-  BlocoPLargura: number,
-  BlocoPCondutividade: number,
+  Bloco_id: number,
   EspessuraRInterna: number,
   EspessuraRExterna: number,
   CondutividadeReboco: number,
@@ -58,10 +59,7 @@ interface IRequest {
 
 class CalculoParedeService {
   public async execute({
-    BlocoPComprimento,
-    BlocoPAltura,
-    BlocoPLargura,
-    BlocoPCondutividade,
+    Bloco_id,
     EspessuraRInterna,
     EspessuraRExterna,
     CondutividadeReboco,
@@ -71,12 +69,20 @@ class CalculoParedeService {
     AreaP
   }: IRequest): Promise<Number> {
 
-    console.log(AreaP);
-    
-    let Aa = AreaA(BlocoPComprimento, BlocoPAltura)
-    let Ra = ResistenciaA(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, CondutividadeAssentamento, BlocoPLargura)
-    let Rb = ResistenciaB(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, BlocoPCondutividade, BlocoPLargura)
-    let Ab = AreaB(BlocoPAltura, BlocoPComprimento)
+    const blocoRepository = getCustomRepository(BlocoRepository);
+
+    const bloco = await blocoRepository.findById(Bloco_id.toString());
+
+    console.log(bloco);
+
+    if (!bloco) {
+      return 0;
+    }
+
+    let Aa = AreaA(bloco.comprimento, bloco.altura)
+    let Ra = ResistenciaA(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, CondutividadeAssentamento, bloco.largura)
+    let Rb = ResistenciaB(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, bloco.material.condutividade, bloco.largura)
+    let Ab = AreaB(bloco.altura, bloco.comprimento)
     
     let Rt = ResistenciaParede(Aa, Ab, Ra, Rb)
     

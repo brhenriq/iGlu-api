@@ -5,7 +5,9 @@ import Bloco from '../entities/Bloco';
 class BlocoRepository extends Repository<Bloco>{
 
   public async findById(id: string): Promise<Bloco | undefined> {
-    const bloco = this.findOne(id);
+    const bloco = this.findOne(id, {
+      relations: ['material']
+    });
 
     return bloco;
   }  

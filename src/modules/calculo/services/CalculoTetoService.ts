@@ -1,3 +1,7 @@
+import ForroRepository from "@modules/forro/typeorm/repositories/ForroRepository";
+import TelhaRepository from "@modules/telha/typeorm/repositories/TelhaRepository";
+import { getCustomRepository } from "typeorm";
+
 function ResistenciaTetoForlaje(
   EspessuraTelha: number,
   CondutividadeTelha: number,
@@ -29,10 +33,8 @@ function Eq(
 
 interface IRequest {
   AreaPiso: number;
-  CondutividadeTelha: number;
-  EspessuraTelha: number;
-  CondutividadeForrLaje: number;
-  EspessuraForrLaje: number;
+  Telha_id: number;
+  ForroLaje_id: number;
   TemperaturaExterna: number;
   TemperaturaInterna: number;
 }
@@ -40,18 +42,29 @@ interface IRequest {
 class CalculoTetoService {
   public async execute({
     AreaPiso,
-    CondutividadeTelha,
-    EspessuraTelha,
-    CondutividadeForrLaje,
-    EspessuraForrLaje,
+    Telha_id,
+    ForroLaje_id,
     TemperaturaExterna,
     TemperaturaInterna,
   }: IRequest): Promise<Number> {
+
+    const telhaRepository = getCustomRepository(TelhaRepository);
+    const forroRepository = getCustomRepository(ForroRepository);
+
+    const telha = await telhaRepository.findById(Telha_id.toString());
+    const forroLaje = await forroRepository.findById(
+      ForroLaje_id.toString()
+    );
+ 
+    if (!telha || !forroLaje) return 0;
+
+    console.log(telha, forroLaje);
+
     const Rt = ResistenciaTetoForlaje(
-      EspessuraTelha,
-      CondutividadeTelha,
-      EspessuraForrLaje,
-      CondutividadeForrLaje
+      telha.espessura,
+      telha.material.condutividade,
+      forroLaje.espessura,
+      forroLaje.material.condutividade
     );
 
     const eq = Eq(AreaPiso, Rt, TemperaturaInterna, TemperaturaExterna);

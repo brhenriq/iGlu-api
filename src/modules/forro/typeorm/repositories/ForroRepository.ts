@@ -5,7 +5,9 @@ import Forro from '../entities/Forro';
 class ForroRepository extends Repository<Forro>{
 
   public async findById(id: string): Promise<Forro | undefined> {
-    const forro = this.findOne(id);
+    const forro = this.findOne(id, {
+      relations: ["material"],
+    });
 
     return forro;
   }  

@@ -5,7 +5,9 @@ import Telha from '../entities/Telha';
 class TelhaRepository extends Repository<Telha>{
 
   public async findById(id: string): Promise<Telha | undefined> {
-    const telha = this.findOne(id);
+    const telha = this.findOne(id, {
+      relations: ["material"],
+    });
 
     return telha;
   }  
