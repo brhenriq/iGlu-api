@@ -50,7 +50,7 @@ export default class TelhaController {
       AreaP: AreaTotal || AreaP,
     });
 
-    const resultado = Number(resultadoParede) + Number(resultadoVidro);
+    const resultado = Number(resultadoParede) + Number(resultadoVidro || 0);
 
     return response.json(resultado);
   }

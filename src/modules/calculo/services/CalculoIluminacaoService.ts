@@ -6,8 +6,6 @@ function calculoIluminacao(Area: number) {
   
   const kcal = 0.86 * potenciaTotal * 1.2;
 
-  console.log(Math.trunc(valor), potenciaTotal, kcal)
-
   return kcal;
 }
 

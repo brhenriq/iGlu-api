@@ -1,5 +1,6 @@
 import ForroRepository from "@modules/forro/typeorm/repositories/ForroRepository";
 import TelhaRepository from "@modules/telha/typeorm/repositories/TelhaRepository";
+import AppError from "@shared/errors/AppError";
 import { getCustomRepository } from "typeorm";
 
 function ResistenciaTetoForlaje(
@@ -56,7 +57,7 @@ class CalculoTetoService {
       ForroLaje_id.toString()
     );
  
-    if (!telha || !forroLaje) return 0;
+    if (!telha || !forroLaje) throw new AppError("Não foi encontrado telha/forro informado");
 
     console.log(telha, forroLaje);
 

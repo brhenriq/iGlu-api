@@ -1,4 +1,5 @@
 import BlocoRepository from "@modules/bloco/typeorm/repositories/BlocoRepository"
+import AppError from "@shared/errors/AppError"
 import { response } from "express"
 import { getCustomRepository } from "typeorm"
 
@@ -73,11 +74,7 @@ class CalculoParedeService {
 
     const bloco = await blocoRepository.findById(Bloco_id.toString());
 
-    console.log(bloco);
-
-    if (!bloco) {
-      return 0;
-    }
+    if (!bloco) throw new AppError("Não foi encontrado o bloco informado");
 
     let Aa = AreaA(bloco.comprimento, bloco.altura)
     let Ra = ResistenciaA(EspessuraRInterna, EspessuraRExterna, CondutividadeReboco, CondutividadeAssentamento, bloco.largura)
